@@ -87,7 +87,7 @@ Generator smoke evidence:
 - Runtime dependencies now include Flask in `requirements.txt`.
 - `requirements-dev.txt` includes runtime requirements and `pyinstaller>=6.0`.
 - There is no `pyproject.toml`, `setup.py`, or lockfile.
-- `.claude/` is local agent-tool configuration and should stay out of the public source snapshot.
+- Local agent-tool configuration is not part of the source snapshot.
 
 ## Status Summary
 

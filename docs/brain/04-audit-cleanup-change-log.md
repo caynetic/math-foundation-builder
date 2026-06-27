@@ -195,7 +195,7 @@ Why:
 ## Public Repo Snapshot Policy
 
 - Excluded `.claude/` from the public source snapshot.
-- Added `.claude/` to `.gitignore`.
+- Deleted the local `.claude/` folder.
 
 Why:
 

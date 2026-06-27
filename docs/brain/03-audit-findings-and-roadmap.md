@@ -162,19 +162,18 @@ Recommended change:
 - Consider newline-delimited JSON for append-only logs, or rotate/summarize old session logs.
 - Keep atomic writes for progress state.
 
-### P2: Decide tracked local tool config policy
+### P2: Remove local tool config from source snapshot
 
 Status: decided on 2026-06-27.
 
 Evidence:
 
-- `.claude/settings.json` is tracked and contains local agent command permissions.
+- `.claude/settings.json` was local agent command-permission state.
 
 Decision:
 
-- Treat `.claude/` as local-only agent tooling.
-- Exclude it from the public source snapshot.
-- Ignore it in `.gitignore`.
+- Delete the local `.claude/` folder.
+- Keep local agent-tooling state out of the public source snapshot.
 
 ### P2: Prepare packaging for distribution
 
