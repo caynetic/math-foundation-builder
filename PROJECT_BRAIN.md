@@ -15,6 +15,12 @@ This is the routing document for the Math Foundation Builder app. Read this firs
 
 ## Docs Routing
 
+- Beginner-friendly guide index: `docs/guide/README.md`
+- Plain-English app overview: `docs/guide/01-what-this-app-is.md`
+- Setup, run, and test instructions: `docs/guide/02-run-and-test.md`
+- Project map for non-experts: `docs/guide/03-project-map.md`
+- Summary of what changed from the original clone: `docs/guide/04-what-changed.md`
+- Future-change guide for app ideas: `docs/guide/05-next-changes.md`
 - Current app state and verification snapshot: `docs/brain/01-current-state.md`
 - Architecture, module contracts, and how to add topics: `docs/brain/02-architecture.md`
 - Audit findings and recommended change order: `docs/brain/03-audit-findings-and-roadmap.md`
@@ -25,6 +31,7 @@ This is the routing document for the Math Foundation Builder app. Read this firs
 
 ## Working Rules
 
+- For owner-facing docs, assume the reader has an app idea and little technical background. Split topics into short files and link to deeper docs instead of putting everything in one page.
 - Keep app behavior changes small and test-backed. Core risk is product correctness, not infrastructure.
 - Before adding a subject or topic, update `config.py`, `content/`, `problems/`, `MathFoundationBuilder.spec`, and tests together.
 - Preserve the static import strategy in `core/problem_engine.py` unless packaging is redesigned; PyInstaller depends on explicit visibility.

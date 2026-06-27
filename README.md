@@ -2,6 +2,19 @@
 
 Math Foundation Builder is a local browser-based math tutor for guided algebra, geometry, and advanced math practice. It runs a Flask server on `127.0.0.1`, opens in the browser, and reuses the existing Python lesson, problem, progress, and session logic.
 
+## New To The Project?
+
+Start with the short guide instead of reading every technical note at once:
+
+1. `docs/guide/README.md`: what to read first.
+2. `docs/guide/01-what-this-app-is.md`: plain-English project overview.
+3. `docs/guide/02-run-and-test.md`: how to run, stop, and test the app.
+4. `docs/guide/03-project-map.md`: where the important files live.
+5. `docs/guide/04-what-changed.md`: what changed from the original cloned app.
+6. `docs/guide/05-next-changes.md`: how to think about future ideas.
+
+The deeper audit and architecture docs are still in `docs/brain/` for later reference.
+
 ## Project Layout
 
 - `web/app.py`: Flask web app entry point.

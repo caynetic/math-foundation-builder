@@ -12,6 +12,7 @@ This note documents the working-tree cleanup pass for Math Foundation Builder an
 ## Documentation Added
 
 - Added `PROJECT_BRAIN.md`.
+- Added beginner guide docs under `docs/guide/`.
 - Added `docs/brain/01-current-state.md`.
 - Added `docs/brain/02-architecture.md`.
 - Added `docs/brain/03-audit-findings-and-roadmap.md`.
@@ -21,6 +22,7 @@ This note documents the working-tree cleanup pass for Math Foundation Builder an
 Why:
 
 - The repo did not have a clear source-of-truth map for status, architecture, verification, and next work.
+- The original cloned project expected too much unstated Python/Tkinter/Git knowledge for a non-expert owner.
 - Future changes need a route into the correct docs before touching code.
 - The audit surfaced correctness, packaging, and repo-hygiene issues that should not live only in chat.
 
