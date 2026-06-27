@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">Learn</p>
+  <h1>{{ content.title }}</h1>
+  <p class="muted">{{ content.intro }}</p>
+</section>
+
+{% if not content.available %}
+  <section class="card">
+    <p>Lesson content for this topic is not available yet.</p>
+    <a class="button secondary" href="{{ url_for('subject_topics', subject=subject) }}">Back to Topics</a>
+  </section>
+{% else %}
+  <section class="list">
+    {% for card in content.concept_cards %}
+      <article class="card">
+        <p class="eyebrow">Concept {{ loop.index }}</p>
+        <h2>{{ card.title }}</h2>
+        <p class="preline">{{ card.body }}</p>
+        {% if card.formula %}
+          <pre>{{ card.formula }}</pre>
+        {% endif %}
+        {% if card.example %}
+          <p class="example preline">{{ card.example }}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </section>
+
+  {% if content.worked_examples %}
+    <section class="page-heading compact">
+      <h2>Worked Examples</h2>
+    </section>
+    <section class="list">
+      {% for example in content.worked_examples %}
+        <article class="card">
+          <h3>{{ example.problem }}</h3>
+          <ol>
+            {% for step in example.steps %}
+              <li><strong>{{ step[0] }}</strong><br><code>{{ step[1] }}</code></li>
+            {% endfor %}
+          </ol>
+          {% if example.check %}
+            <p class="success">{{ example.check }}</p>
+          {% endif %}
+          {% if example.notes %}
+            <p class="muted">{{ example.notes }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  {% if content.common_mistakes %}
+    <section class="card warning">
+      <h2>Common Mistakes</h2>
+      <ul>
+        {% for mistake in content.common_mistakes %}
+          <li><strong>{{ mistake.mistake }}</strong>: {{ mistake.fix }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if content.key_vocabulary %}
+    <section class="card">
+      <h2>Key Vocabulary</h2>
+      <dl>
+        {% for term, definition in content.key_vocabulary.items() %}
+          <dt>{{ term }}</dt>
+          <dd>{{ definition }}</dd>
+        {% endfor %}
+      </dl>
+    </section>
+  {% endif %}
+
+  <form class="card action-panel" method="post" action="{{ url_for('complete_learn', subject=subject, topic=topic) }}">
+    <p>When you have read the concepts and examples, mark Learn complete to unlock Practice.</p>
+    <button class="button" type="submit">Mark Learn Complete</button>
+  </form>
+{% endif %}
+{% endblock %}

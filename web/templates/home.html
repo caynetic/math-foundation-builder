@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">Dashboard</p>
+  <h1>Choose a Module</h1>
+  <p class="student-line">Student: <strong>{{ name }}</strong></p>
+  <p class="muted">Complete each module in order. Geometry unlocks after Algebra, and Advanced unlocks after Geometry.</p>
+</section>
+
+<section class="grid three">
+  {% for subject in subjects %}
+    <article class="card module-card {% if subject.locked %}locked{% endif %}">
+      <h2>{{ subject.label }}</h2>
+      {% if subject.locked %}
+        <p class="muted">{{ subject.lock_message }}</p>
+        <span class="button disabled">Locked</span>
+      {% else %}
+        <p>{{ subject.mastered }} of {{ subject.total }} topics mastered</p>
+        <div class="meter"><span style="width: {{ (subject.mastered / subject.total * 100) if subject.total else 0 }}%"></span></div>
+        <a class="button" href="{{ url_for('subject_topics', subject=subject.key) }}">Open {{ subject.label }}</a>
+      {% endif %}
+    </article>
+  {% endfor %}
+</section>
+
+<section class="stats card">
+  <h2>Your Progress at a Glance</h2>
+  <div class="stat-row">
+    <span>Algebra: <strong>{{ overall.algebra_mastered }} / {{ overall.algebra_total }}</strong></span>
+    <span>Geometry: <strong>{{ overall.geometry_mastered }} / {{ overall.geometry_total }}</strong></span>
+    <span>Advanced: <strong>{{ overall.advanced_mastered }} / {{ overall.advanced_total }}</strong></span>
+    <span>Overall: <strong>{{ overall.percent_overall }}%</strong></span>
+  </div>
+</section>
+{% endblock %}

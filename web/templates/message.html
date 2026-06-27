@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="center-panel">
+  <div class="card">
+    <h1>{{ message }}</h1>
+    <a class="button" href="{{ back_url }}">{{ back_label }}</a>
+  </div>
+</section>
+{% endblock %}

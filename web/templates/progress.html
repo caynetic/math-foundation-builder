@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">Progress</p>
+  <h1>{{ overall.percent_overall }}% Complete</h1>
+  <p class="muted">Progress is saved locally on this machine.</p>
+</section>
+
+{% for subject in subjects %}
+  <section class="card">
+    <h2>{{ subject.label }} {% if subject.locked %}<span class="pill">Locked</span>{% endif %}</h2>
+    <div class="list compact-list">
+      {% for row in subject.topics %}
+        {% set summary = row.summary %}
+        <div class="topic-row simple">
+          <span>{{ row.label }}</span>
+          <span>
+            Learn: {{ status_label(summary.learn) }} |
+            Practice: {{ status_label(summary.practice) }} |
+            Evaluate: {{ status_label(summary.evaluate) }}
+          </span>
+          <span>{{ summary.best_score }}%</span>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endfor %}
+{% endblock %}

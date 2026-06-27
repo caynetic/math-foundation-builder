@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">{{ subject_label(subject) }}</p>
+  <h1>{{ subject_label(subject) }} Topics</h1>
+  <p class="muted">Work through Learn, Practice, then Evaluate for each topic.</p>
+</section>
+
+<section class="list">
+  {% for row in rows %}
+    {% set summary = row.summary %}
+    <article class="card topic-row {% if summary.locked %}locked{% endif %}">
+      <div>
+        <h2>{{ row.label }}</h2>
+        <p class="muted">
+          Learn: {{ status_label(summary.learn) }} |
+          Practice: {{ status_label(summary.practice) }} |
+          Evaluate: {{ status_label(summary.evaluate) }}
+        </p>
+        {% if summary.mastered %}
+          <p class="success">Mastered. Best score: {{ summary.best_score }}%</p>
+        {% elif summary.best_score %}
+          <p>Best score: {{ summary.best_score }}%</p>
+        {% endif %}
+      </div>
+      <div>
+        {% if row.action.disabled %}
+          <span class="button disabled">{{ row.action.label }}</span>
+        {% else %}
+          <a class="button" href="{{ row.action.url }}">{{ row.action.label }}</a>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

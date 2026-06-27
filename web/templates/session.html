@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">{{ mode_label }}</p>
+  <h1>{{ topic_label(topic) }}</h1>
+  {% if phase == config.PHASE_PRACTICE %}
+    <p class="muted">Build a streak of {{ config.PRACTICE_PASS_STREAK }} correct answers to unlock Evaluate.</p>
+  {% else %}
+    <p class="muted">Question {{ manager.current_question_number() }} of {{ manager.total_questions() }}. No hints in Evaluate.</p>
+  {% endif %}
+</section>
+
+{% if result %}
+  <section class="card feedback {% if result.correct %}correct{% else %}incorrect{% endif %}">
+    <h2>{% if result.correct %}Correct{% else %}Not quite{% endif %}</h2>
+    <p>{{ result.feedback }}</p>
+    {% if phase == config.PHASE_PRACTICE and result.explanation %}
+      <p class="preline">{{ result.explanation }}</p>
+    {% endif %}
+    {% if result.practice_passed %}
+      <p class="success">Practice complete. Evaluate is unlocked.</p>
+      <a class="button" href="{{ url_for('evaluate', subject=subject, topic=topic) }}">Go to Evaluate</a>
+    {% endif %}
+  </section>
+{% endif %}
+
+{% if error %}
+  <p class="error">{{ error }}</p>
+{% endif %}
+
+{% if problem %}
+  <section class="card problem-card">
+    <p class="eyebrow">Current Problem</p>
+    <h2>{{ problem.question }}</h2>
+
+    {% if phase == config.PHASE_PRACTICE %}
+      <details>
+        <summary>Show hints</summary>
+        <ol>
+          <li>{{ problem.hint }}</li>
+          <li>{{ problem.hint2 }}</li>
+          <li>{{ problem.hint3 }}</li>
+        </ol>
+      </details>
+    {% endif %}
+
+    {% if not result or not result.practice_passed %}
+      <form class="answer-form" method="post">
+        <label for="answer">Your answer</label>
+        <input id="answer" name="answer" autocomplete="off" autofocus>
+        <button class="button" type="submit">{% if phase == config.PHASE_PRACTICE %}Check Answer{% else %}Submit Answer{% endif %}</button>
+      </form>
+    {% endif %}
+
+    {% if phase == config.PHASE_PRACTICE and (not result or not result.practice_passed) %}
+      <form method="post" class="inline-form">
+        <button class="button secondary" name="show_solution" value="1" type="submit">Show Solution</button>
+      </form>
+    {% endif %}
+  </section>
+{% endif %}
+
+<section class="actions">
+  <a class="button secondary" href="{{ url_for('subject_topics', subject=subject) }}">Back to Topics</a>
+  {% if phase == config.PHASE_PRACTICE %}
+    <span class="pill">Current streak: {{ manager.current_streak }} / {{ config.PRACTICE_PASS_STREAK }}</span>
+  {% else %}
+    <span class="pill">Score: {{ manager.total_correct }} correct</span>
+  {% endif %}
+</section>
+{% endblock %}

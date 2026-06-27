@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="center-panel">
+  <h1>Math Foundation Builder</h1>
+  <p class="muted">Algebra, Geometry, and Advanced Math practice in your browser.</p>
+
+  {% if name %}
+    <div class="card">
+      <p class="eyebrow">Welcome back</p>
+      <h2>{{ name }}</h2>
+      <p>Overall progress: <strong>{{ overall.percent_overall }}%</strong></p>
+      <div class="actions">
+        <a class="button" href="{{ url_for('home') }}">Continue Learning</a>
+      </div>
+    </div>
+  {% else %}
+    <form class="card form-card" method="post" action="{{ url_for('student') }}">
+      <label for="name">What is your name?</label>
+      <input id="name" name="name" value="{{ name }}" autocomplete="name" autofocus>
+      <p class="hint">Enter at least 2 characters to begin.</p>
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+      <button class="button" type="submit">Save Name &amp; Start Learning</button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

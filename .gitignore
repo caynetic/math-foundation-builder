@@ -1,0 +1,29 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# Test and tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.claude/
+
+# PyInstaller output
+build/
+dist/
+
+# Runtime app data created in development mode
+data/
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/

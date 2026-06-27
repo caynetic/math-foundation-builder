@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set summary = result.summary %}
+{% set tracker_result = result.tracker_result %}
+<section class="page-heading">
+  <p class="eyebrow">Results</p>
+  <h1>{{ result.topic_label }}</h1>
+  <p class="muted">Score: {{ summary.total_correct }} / {{ config.PROBLEMS_PER_ROUND }} ({{ summary.score_percent }}%)</p>
+</section>
+
+<section class="card {% if tracker_result.mastered %}correct{% elif summary.passed %}feedback{% else %}warning{% endif %}">
+  {% if tracker_result.mastered %}
+    <h2>Topic Mastered</h2>
+    <p>The topic is mastered. The difficulty has advanced for replay.</p>
+  {% elif summary.passed %}
+    <h2>Passed</h2>
+    <p>You passed this evaluation. Review your answers below.</p>
+  {% else %}
+    <h2>Keep Practicing</h2>
+    <p>You need {{ config.MASTERY_SCORE_PERCENT }}% to master this topic.</p>
+  {% endif %}
+  {% if tracker_result.geometry_unlocked %}
+    <p class="success">Geometry is now unlocked.</p>
+  {% endif %}
+  {% if tracker_result.advanced_unlocked %}
+    <p class="success">Advanced is now unlocked.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Answer Review</h2>
+  <ol class="review-list">
+    {% for item in summary.answer_log %}
+      <li>
+        <strong>{% if item.correct %}Correct{% else %}Incorrect{% endif %}</strong>
+        <p>{{ item.question }}</p>
+        <p class="muted">Your answer: {{ item.student_input }} | Expected: {{ item.expected_answer }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="actions">
+  <a class="button secondary" href="{{ url_for('subject_topics', subject=result.subject) }}">Back to Topics</a>
+  <a class="button" href="{{ url_for('evaluate', subject=result.subject, topic=result.topic) }}">Try Evaluate Again</a>
+  <a class="button secondary" href="{{ url_for('practice', subject=result.subject, topic=result.topic) }}">Practice</a>
+</section>
+{% endblock %}
