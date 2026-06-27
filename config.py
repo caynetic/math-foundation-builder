@@ -9,26 +9,18 @@ APP_TITLE = "Math Foundation Builder"
 APP_VERSION = "1.0.0"
 
 # -----------------------------------------------------------------------------
-# Window dimensions
-# -----------------------------------------------------------------------------
-WINDOW_WIDTH = 900
-WINDOW_HEIGHT = 650
-WINDOW_MIN_WIDTH = 800
-WINDOW_MIN_HEIGHT = 580
-
-# -----------------------------------------------------------------------------
 # Phase gate thresholds
 # -----------------------------------------------------------------------------
 
 # Phase 1 → Phase 2 (Learn → Practice):
-# Student must view ALL concept cards and reveal ALL example steps.
-# Enforced in learn_screen.py — no numeric threshold, it is completion-based.
+# Student must open the lesson page before the completion route unlocks Practice.
+# No numeric score is used for this phase.
 
 # Phase 2 → Phase 3 (Practice → Evaluate):
 # Student must answer this many consecutive problems correctly
 # WITHOUT using "Show Solution" to unlock the Evaluate phase.
 PRACTICE_PASS_STREAK = 3          # correct answers needed in a row
-PRACTICE_WINDOW_SIZE = 5          # within this many attempts
+PRACTICE_WINDOW_SIZE = 5          # practice problem buffer size, not a pass rule
 
 # Phase 3 — Evaluate:
 PROBLEMS_PER_ROUND = 10           # questions per evaluation session
@@ -114,7 +106,7 @@ ADVANCED_REQUIRES_GEOMETRY_MASTERY = True
 
 # -----------------------------------------------------------------------------
 # Phase state constants
-# Used throughout progress_tracker.py and the GUI screens.
+# Used throughout progress tracking, sessions, and web routes.
 # -----------------------------------------------------------------------------
 PHASE_LEARN    = "learn"
 PHASE_PRACTICE = "practice"

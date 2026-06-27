@@ -1,7 +1,7 @@
 # =============================================================================
 # core/problem_engine.py
 # Central dispatcher — given a subject, topic, and difficulty, returns
-# a fully formed problem dict ready for the GUI to display.
+# a fully formed problem dict ready for the web UI to display.
 #
 # IMPORTANT — PyInstaller safety:
 #   All imports are EXPLICIT and STATIC.  No importlib, no __import__(),
@@ -287,7 +287,7 @@ def _validate_problem(problem: dict, subject: str, topic: str) -> None:
     """
     Validate a generated problem and apply safe defaults for optional fields.
 
-    Raises ValueError for fields that the GUI/session layer cannot safely
+    Raises ValueError for fields that the UI/session layer cannot safely
     recover from. get_problem() catches this and returns a stub problem.
     """
     if not isinstance(problem, dict):
@@ -297,7 +297,7 @@ def _validate_problem(problem: dict, subject: str, topic: str) -> None:
     if missing:
         raise ValueError(f"problem missing required keys: {sorted(missing)}")
 
-    # Apply safe defaults for missing keys so the GUI never KeyErrors
+    # Apply safe defaults for missing keys so templates never KeyError.
     problem.setdefault("hint",        "Think carefully about the steps.")
     problem.setdefault("hint2",       "Try breaking the problem into smaller parts.")
     problem.setdefault("hint3",       "Review the worked example in the Learn section.")

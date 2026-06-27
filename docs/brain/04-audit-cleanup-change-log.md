@@ -194,6 +194,17 @@ Why:
 - Keeping two UI runtimes would increase maintenance cost while only one path is being tested and packaged.
 - The Flask app now covers the learner flow, and the tests cover core behavior, route flow, and packaging alignment.
 
+## Code Comment Cleanup
+
+- Removed stale GUI/Tkinter references from core comments and content comments.
+- Removed unused desktop window-size constants from `config.py`.
+- Clarified that Practice uses a consecutive-correct streak and `PRACTICE_WINDOW_SIZE` is only a problem buffer.
+
+Why:
+
+- The code organization was mostly sound, but old comments could mislead a new maintainer into looking for deleted Tkinter files.
+- Comments should explain intent and current behavior, not preserve obsolete implementation details.
+
 ## Public Repo Snapshot Policy
 
 - Excluded `.claude/` from the public source snapshot.
@@ -206,7 +217,6 @@ Why:
 
 ## Remaining Follow-Ups
 
-- Clarify Practice pass semantics. Current behavior is streak-based; older comments imply a rolling-window rule.
 - Improve session-log durability if the app will be used heavily over time.
 - Add release packaging identity before distribution: icon, bundle identifier, signing identity, entitlements, and notarization stance.
 - Run an actual PyInstaller build before treating the app as release-ready.

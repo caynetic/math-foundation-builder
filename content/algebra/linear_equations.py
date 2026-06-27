@@ -2,8 +2,8 @@
 # content/algebra/linear_equations.py
 # All teaching content for the Linear Equations topic.
 #
-# This file contains ONLY knowledge — no GUI, no logic.
-# learn_screen.py reads this and renders it into cards and worked examples.
+# This file contains ONLY knowledge — no UI routes, persistence, or scoring logic.
+# web/content_loader.py reads this and templates render it into lesson sections.
 #
 # Structure:
 #   TOPIC_TITLE        str
@@ -26,8 +26,7 @@ TOPIC_INTRO = (
 
 # -----------------------------------------------------------------------------
 # Concept Cards
-# Each card is shown one at a time in learn_screen.py.
-# The student taps Next to advance — they cannot skip ahead.
+# Each card is rendered by the browser lesson page.
 #
 # Keys:
 #   title   : card heading
@@ -127,7 +126,7 @@ CONCEPT_CARDS = [
 # -----------------------------------------------------------------------------
 # Worked Examples
 # Each example shows a full step-by-step solution.
-# learn_screen.py reveals one step at a time — the student taps to see each.
+# The browser lesson page renders these as step-by-step examples.
 #
 # Keys:
 #   problem : the equation to solve (shown upfront)

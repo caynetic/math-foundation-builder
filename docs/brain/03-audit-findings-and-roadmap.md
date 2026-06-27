@@ -141,15 +141,18 @@ Fix:
 
 ### P2: Clarify Practice pass semantics
 
+Status: clarified on 2026-06-27.
+
 Evidence:
 
 - `config.py` comments say Practice requires a streak within a window.
 - Implementation checks only consecutive streak.
 - `PRACTICE_WINDOW_SIZE` is currently used as a generated-problem buffer, not as a scoring window.
 
-Recommended change:
+Decision:
 
-- Either update comments/docs to say "consecutive streak only" or implement the configured rolling-window rule.
+- Keep Practice as a consecutive-streak rule.
+- Document `PRACTICE_WINDOW_SIZE` as a generated-problem buffer, not a pass rule.
 
 ### P2: Improve session log durability
 
@@ -208,10 +211,9 @@ Result: passed after staging corrected `.gitignore` and `README.md` EOFs.
 
 ## Recommended Work Order
 
-1. Clarify whether Practice is a pure streak rule or a true rolling-window rule.
-2. Improve session log durability if long-term use creates large logs.
-3. Add release packaging identity: bundle identifier, icon, signing, and notarization stance.
-4. Run an actual PyInstaller build before any release candidate.
+1. Improve session log durability if long-term use creates large logs.
+2. Add release packaging identity: bundle identifier, icon, signing, and notarization stance.
+3. Run an actual PyInstaller build before any release candidate.
 
 ## Verification Definition For Next Code Pass
 

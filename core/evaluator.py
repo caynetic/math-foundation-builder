@@ -10,7 +10,7 @@
 #   - Select encouragement messages based on outcome
 #   - Append every answer attempt to session_log.json
 #
-# No GUI code here — pure logic only.
+# No UI code here — pure logic only.
 # =============================================================================
 
 import random
@@ -55,7 +55,7 @@ class Evaluator:
         self.current_streak  = 0   # consecutive correct answers
         self.best_streak     = 0
 
-        # Per-question record for result_screen review
+        # Per-question record for result-page review.
         self.answer_log: list[dict] = []
 
     # -----------------------------------------------------------------------
@@ -274,7 +274,7 @@ class Evaluator:
 
     def get_summary(self) -> dict:
         """
-        Return end-of-session summary dict used by result_screen.py.
+        Return the end-of-session summary dict used by the result page.
 
         {
           "total_attempts":  int,

@@ -41,8 +41,6 @@ These should be planned before coding:
 
 ## Current Follow-Ups
 
-- Decide whether Practice should stay streak-based or use the older rolling-window idea.
 - Improve session-log durability if the app gets heavy use.
 - Run a real PyInstaller build.
 - Add release packaging identity: icon, bundle identifier, signing, entitlements, and notarization plan.
-

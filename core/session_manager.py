@@ -10,11 +10,11 @@
 #   - Hold all live state: subject, topic, phase, current question index,
 #     problem set, timer, score
 #   - Coordinate between ProgressTracker and Evaluator
-#   - Provide clean start/advance/finish methods the GUI screens call
+#   - Provide clean start/advance/finish methods the web routes call
 #   - Generate a unique session ID for logging
 #
-# The GUI never touches ProgressTracker or Evaluator directly —
-# it goes through SessionManager only.
+# Practice and Evaluate flows go through SessionManager so route handlers do not
+# duplicate scoring, gating, or session-state rules.
 # =============================================================================
 
 import uuid
@@ -32,8 +32,8 @@ logger = logging.getLogger(__name__)
 
 class SessionManager:
     """
-    Single instance shared across the entire app lifetime.
-    The GUI root (app_root.py) creates one instance and passes it to screens.
+    Live state for one browser client's active learning session.
+    The Flask app creates one SessionManager per browser session.
 
     Typical usage flow (Evaluate phase):
         sm.start_session("algebra", "linear_equations", "evaluate")
@@ -75,7 +75,7 @@ class SessionManager:
 
         Generates the problem set, resets all counters, and creates a
         fresh Evaluator.  Call this every time the student enters a
-        Practice or Evaluate screen.
+        Practice or Evaluate page.
 
         Parameters:
             subject : "algebra" or "geometry"
@@ -262,7 +262,7 @@ class SessionManager:
         return problem
 
     # -----------------------------------------------------------------------
-    # Hint / Show Solution flags  (set by GUI before submit_answer)
+    # Hint / Show Solution flags set before submit_answer()
     # -----------------------------------------------------------------------
 
     def mark_hint_used(self) -> None:
@@ -282,7 +282,7 @@ class SessionManager:
         Finalise the session and persist results.
 
         For Evaluate phase: records score in ProgressTracker and returns
-        the full summary dict for result_screen.py to display.
+        the full summary dict for the result page to display.
 
         For Practice phase: the tracker is already updated per-answer via
         update_practice(), so this just returns the summary.
@@ -329,7 +329,7 @@ class SessionManager:
         }
 
     # -----------------------------------------------------------------------
-    # Read-only state accessors  (used by GUI screens for display)
+    # Read-only state accessors used by routes and templates
     # -----------------------------------------------------------------------
 
     @property

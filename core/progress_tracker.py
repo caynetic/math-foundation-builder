@@ -8,7 +8,7 @@
 #   - Unlocking the next phase or the geometry module
 #   - Persisting all changes to progress.json via file_io
 #
-# No GUI code here — pure logic only.
+# No UI code here — pure progress logic only.
 # =============================================================================
 
 import logging
@@ -146,13 +146,13 @@ class ProgressTracker:
         return not self.is_subject_locked(config.SUBJECT_ADVANCED)
 
     # -----------------------------------------------------------------------
-    # Phase completion — called by each screen when the student finishes
+    # Phase completion
     # -----------------------------------------------------------------------
 
     def complete_learn(self, subject: str, topic: str) -> None:
         """
         Mark the Learn phase complete and unlock Practice.
-        Called by learn_screen.py when all cards and examples are viewed.
+        Called by the web app after the lesson page has been opened and completed.
         """
         self._data[subject][topic][config.PHASE_LEARN]["status"] = config.STATUS_COMPLETE
         # Unlock practice if it was locked
@@ -315,7 +315,7 @@ class ProgressTracker:
         return False
 
     # -----------------------------------------------------------------------
-    # Summary helpers  (used by home_screen and progress_screen)
+    # Summary helpers used by the home, topic, and progress pages
     # -----------------------------------------------------------------------
 
     def get_topic_summary(self, subject: str, topic: str) -> dict:
